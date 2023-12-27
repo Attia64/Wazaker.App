@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">وذكِّر</string>
+    <string name="open">فتح</string>
+    <string name="close">غلق</string>
+    <string name="counter">العداد</string>
+    <string name="azkaar">الأذكار</string>
+    <string name="settings">الإعدادات</string>
+    <string name="about_us">عنا</string>
+    <string name="reset">إعادة بدء</string>
+    <string name="step">الخطوة</string>
+    <string name="goal">الهدف</string>
+    <string name="zekr1">أسْتَغْفِرُ اللهَ العَظِيمَ</string>
+    <string name="counter_format">%s</string>
+    <string name="stop_button">إيقاف</string>
+</resources>

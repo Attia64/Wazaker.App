@@ -1,0 +1,18 @@
+<resources>
+    <!-- Base application theme. -->
+    <!-- TODO: Changed the theme to resolve the problems -->
+    <style name="Theme.wazaker" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <!-- TODO: Change these colors as you want -->
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/mainColor1</item>
+        <item name="colorPrimaryVariant">@color/mainColor1</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/mainColor1</item>
+        <item name="colorSecondaryVariant">@color/mainColor1</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+</resources>

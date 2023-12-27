@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- TODO: These IDs is the same as in the navigation component (Navigation Graph) -->
+    <!--  TODO: Change this icon please because not all its components' colors change!!!  -->
+    <!--  android:icon="@drawable/counter_selector"  -->
+    <item
+        android:id="@+id/counterFragment"
+        android:icon="@drawable/ic_home_selector"
+        android:title="@string/counter" />
+
+    <item
+        android:id="@+id/azkaarFragment"
+        android:icon="@drawable/sentences_selector"
+        android:title="@string/azkaar" />
+
+    <item
+        android:id="@+id/settingsFragment"
+        android:icon="@drawable/settings_selector"
+        android:title="@string/settings" />
+
+    <item
+        android:id="@+id/infoFragment"
+        android:icon="@drawable/info_selector"
+        android:title="@string/about_us" />
+
+</menu>

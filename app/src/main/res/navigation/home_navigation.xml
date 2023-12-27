@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_navigaiton.xml"
+    app:startDestination="@id/counterFragment">
+
+    <!-- TODO: These IDs is the same as in the bottom navigation menu -->
+    <fragment
+        android:id="@+id/azkaarFragment"
+        android:name="com.attia.wazaker.AzkaarFragment"
+        android:label="AzkaarFragment"
+        tools:layout="@layout/fragment_azkaar" >
+        <argument
+            android:name="Chosen_Zekr"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/infoFragment"
+        android:name="com.attia.wazaker.HistoryFragment"
+        android:label="InfoFragment"
+        tools:layout="@layout/fragment_history" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.attia.wazaker.SettingsFragment"
+        android:label="SettingsFragment"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/counterFragment"
+        android:name="com.attia.wazaker.CounterFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_counter" />
+</navigation>
