@@ -1,8 +1,7 @@
-package com.attia.wazaker
+package com.attia.wazaker.ui.fragments.azkaar
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
@@ -14,9 +13,8 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.attia.wazaker.R
 import com.attia.wazaker.database.WazakerDatabase
 import com.attia.wazaker.databinding.FragmentAzkaarBinding
 
@@ -25,7 +23,7 @@ class AzkaarFragment : Fragment() {
 
     private lateinit var binding: FragmentAzkaarBinding
     private lateinit var viewModel: AzkaarViewModel
-    val azkaarList = mutableListOf(
+    private val azkaarList = mutableListOf(
         "سُبْحَانَ اللَّهِ",
         "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ",
         "سُبْحَانَ اللَّهِ العَظِيم وَبِحَمْدِهِ",
@@ -43,14 +41,12 @@ class AzkaarFragment : Fragment() {
     ): View {
         binding = FragmentAzkaarBinding.inflate(inflater, container, false)
 
-        val appliction = requireNotNull(this.activity).application
-        val dataSource = WazakerDatabase.getInstance(appliction).AzkaarDatabaseDao
-        val viewModelFactory = AzkaarViewModelFactory(dataSource, appliction)
+        val dataSource = WazakerDatabase.getInstance(requireContext()).AzkaarDatabaseDao
+        val viewModelFactory = AzkaarViewModelFactory(dataSource)
 
-        val azkaarViewModel = ViewModelProvider(
-            this, viewModelFactory)[AzkaarViewModel::class.java]
+        viewModel = ViewModelProvider(this, viewModelFactory)[AzkaarViewModel::class.java]
 
-        binding.azkaarViewModel = azkaarViewModel
+        binding.azkaarViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
         val azkarAdapter = AzkaarAdapter()
@@ -86,9 +82,9 @@ class AzkaarFragment : Fragment() {
         with(builder){
             setTitle("إضافة ذكر")
             setPositiveButton("إضافة"){dialog, which ->
-                if(!TextUtils.isEmpty(editText.text)) {
-                    viewModel.passedZekr = editText.text.toString()
-                    viewModel.addZekr()
+                val zekr = editText.text
+                if(!zekr.isNullOrEmpty()) {
+                    viewModel.addZekr(zekr.toString())
                     Toast.makeText(requireContext(), "تم إضافة الذكر", Toast.LENGTH_SHORT).show()
                 }
                 else{

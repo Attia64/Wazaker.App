@@ -1,4 +1,4 @@
-package com.attia.wazaker
+package com.attia.wazaker.ui.fragments.azkaar
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

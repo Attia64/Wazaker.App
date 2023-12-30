@@ -8,7 +8,7 @@
     <!-- TODO: These IDs is the same as in the bottom navigation menu -->
     <fragment
         android:id="@+id/azkaarFragment"
-        android:name="com.attia.wazaker.AzkaarFragment"
+        android:name="com.attia.wazaker.ui.fragments.azkaar.AzkaarFragment"
         android:label="AzkaarFragment"
         tools:layout="@layout/fragment_azkaar" >
         <argument
@@ -17,17 +17,17 @@
     </fragment>
     <fragment
         android:id="@+id/infoFragment"
-        android:name="com.attia.wazaker.HistoryFragment"
+        android:name="com.attia.wazaker.ui.fragments.history.HistoryFragment"
         android:label="InfoFragment"
         tools:layout="@layout/fragment_history" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.attia.wazaker.SettingsFragment"
+        android:name="com.attia.wazaker.ui.fragments.settings.SettingsFragment"
         android:label="SettingsFragment"
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/counterFragment"
-        android:name="com.attia.wazaker.CounterFragment"
+        android:name="com.attia.wazaker.ui.fragments.counter.CounterFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_counter" />
 </navigation>

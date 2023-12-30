@@ -1,9 +1,10 @@
-package com.attia.wazaker
+package com.attia.wazaker.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.attia.wazaker.R
 import com.attia.wazaker.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

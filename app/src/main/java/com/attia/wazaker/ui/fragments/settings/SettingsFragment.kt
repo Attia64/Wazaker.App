@@ -1,4 +1,4 @@
-package com.attia.wazaker
+package com.attia.wazaker.ui.fragments.settings
 
 import android.os.Bundle
 import android.view.LayoutInflater

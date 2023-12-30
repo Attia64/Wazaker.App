@@ -6,7 +6,7 @@
     <data>
         <variable
             name="azkaarViewModel"
-            type="com.attia.wazaker.AzkaarViewModel" />
+            type="com.attia.wazaker.ui.fragments.azkaar.AzkaarViewModel" />
 
     </data>
 
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/mainColor1"
-        tools:context=".CounterFragment">
+        tools:context=".ui.fragments.counter.CounterFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvAzkaar"

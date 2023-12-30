@@ -1,19 +1,17 @@
-package com.attia.wazaker
+package com.attia.wazaker.ui.fragments.counter
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.os.SystemClock
 import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Chronometer
 import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.attia.wazaker.databinding.FragmentCounterBinding
-import com.attia.wazaker.CounterViewModel
+import com.attia.wazaker.R
 
 class CounterFragment : Fragment() {
 
@@ -33,7 +31,7 @@ class CounterFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
 
-        binding.btnStep.setOnClickListener(){
+        binding.btnStep.setOnClickListener{
             showStepDialog()
         }
 
@@ -48,7 +46,7 @@ class CounterFragment : Fragment() {
 
         with(builder) {
             setTitle("إضافة مقدار العدة")
-            setPositiveButton("حسناً") { dialog, which ->
+            setPositiveButton("حسناً") { _, _ ->
                 val stepVal = editText.text.toString().toInt()
                 if (stepVal > 0) {
                     viewModel.step.value = editText.text.toString().toInt()
@@ -56,7 +54,7 @@ class CounterFragment : Fragment() {
                     Toast.makeText(requireContext(), "يرجى إدخال قيمة صحيحة", Toast.LENGTH_SHORT)
                         .show()
             }
-            setNegativeButton("إلغاء") { dialog, which ->
+            setNegativeButton("إلغاء") { _, _ ->
                 Log.d("Main", "Negative Button has Clicked")
             }
             setView(dialogLayout)

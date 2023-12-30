@@ -14,5 +14,5 @@ data class DayHistory(
     val zekrName: String,
 
     @ColumnInfo(name = "Local_Date_Time")
-    val localDateTime: LocalDateTime
+    val localDateTime: Long
 )

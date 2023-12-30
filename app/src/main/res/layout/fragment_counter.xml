@@ -6,14 +6,14 @@
     <data>
         <variable
             name="counterViewModel"
-            type="com.attia.wazaker.CounterViewModel" />
+            type="com.attia.wazaker.ui.fragments.counter.CounterViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/mainColor2"
-        tools:context=".CounterFragment">
+        tools:context=".ui.fragments.counter.CounterFragment">
 
         <Button
             android:id="@+id/btnReset"

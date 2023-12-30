@@ -1,4 +1,4 @@
-package com.attia.wazaker
+package com.attia.wazaker.ui.fragments.history
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -21,11 +21,9 @@ class HistoryFragment : Fragment() {
     ): View {
         binding = FragmentHistoryBinding.inflate(inflater, container, false)
 
-        val application = requireNotNull(this.activity).application
+        val datasource = WazakerDatabase.getInstance(requireContext()).historyDatabaseDao
 
-        val datasource = WazakerDatabase.getInstance(application).historyDatabaseDao
-
-        val viewModelFactory = HistoryViewModelFactory(datasource, application)
+        val viewModelFactory = HistoryViewModelFactory(datasource)
 
         val historyViewModel = ViewModelProvider(
             this, viewModelFactory)[HistoryViewModel::class.java]
