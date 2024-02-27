@@ -3,17 +3,17 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("androidx.navigation.safeargs")
+    // Hilt
+    id("com.google.dagger.hilt.android")
 }
 
 android {
     namespace = "com.attia.wazaker"
-    // TODO: I changed this so I can run the project on my device, you can change them back
     compileSdk = 34
 
     defaultConfig {
         applicationId = "com.attia.wazaker"
         minSdk = 24
-        // TODO: I changed this so I can run the project on my device, you can change them back
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -32,7 +32,7 @@ android {
             )
         }
     }
-    // TODO: I changed this so I can run the project on my device, you can change them back
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -58,7 +58,7 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.7.6")
 
     // Architectural Components & Coroutines
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 
@@ -68,6 +68,10 @@ dependencies {
     annotationProcessor("androidx.room:room-compiler:$roomVersion")
     kapt("androidx.room:room-compiler:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
+
+    // Dependency injection with Hilt
+    implementation ("com.google.dagger:hilt-android:2.44")
+    kapt ("com.google.dagger:hilt-compiler:2.44")
 }
 
 // Allow references to generated code

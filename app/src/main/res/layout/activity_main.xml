@@ -7,11 +7,10 @@
 
     </data>
 
-    <!-- TODO: Check the layout changes!! -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/mainColor1"
+        android:background="@drawable/wazakerbackground"
         tools:context=".ui.MainActivity">
 
         <androidx.fragment.app.FragmentContainerView
@@ -24,16 +23,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:navGraph="@navigation/home_navigation" />
+            app:navGraph="@navigation/home_navigation"
+            tools:layout="@layout/fragment_counter" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNav"
             android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:layout_margin="30dp"
-            android:background="@drawable/round_corner"
+            android:layout_height="50dp"
+            android:background="@color/ActionBar"
             android:elevation="2dp"
-            app:itemIconSize="30dp"
+            app:itemIconSize="20dp"
             app:itemRippleColor="@android:color/transparent"
             app:labelVisibilityMode="auto"
             app:layout_constraintBottom_toBottomOf="parent"

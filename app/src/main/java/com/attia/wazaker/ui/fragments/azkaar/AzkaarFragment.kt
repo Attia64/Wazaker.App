@@ -1,38 +1,23 @@
 package com.attia.wazaker.ui.fragments.azkaar
 
-import android.app.AlertDialog
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.attia.wazaker.R
-import com.attia.wazaker.database.WazakerDatabase
 import com.attia.wazaker.databinding.FragmentAzkaarBinding
+import com.attia.wazaker.ui.fragments.azkaar.myazkaar.MainAzkaarType
 
-// TODO: Changed the fragment like the previous
 class AzkaarFragment : Fragment() {
 
+
     private lateinit var binding: FragmentAzkaarBinding
-    private lateinit var viewModel: AzkaarViewModel
-    private val azkaarList = mutableListOf(
-        "سُبْحَانَ اللَّهِ",
-        "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ",
-        "سُبْحَانَ اللَّهِ العَظِيم وَبِحَمْدِهِ",
-        "سُبْحَانَ اللَّهِ ، وَالحَمْدُ لِلَّهِ ،ولا إلهَ إلاَّ اللَّه  ، وَاللَّهُ أَكْبَرُ ",
-        "الحَمْدُ لِلَّه",
-        "الحَمْدُ حَمْدًا كَثِيرًا طَيِّبًا مُبَارَكًا فِيهِ",
-        "أسْتَغْفِرُ الله",
-        "أسْتَغْفِرُ اللهَ العَظِيم"
-    )
+    private var dataList = ArrayList<MainAzkaarType>()
+    private lateinit var mainAzkaarAdapter: MainAzkaarAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,62 +26,30 @@ class AzkaarFragment : Fragment() {
     ): View {
         binding = FragmentAzkaarBinding.inflate(inflater, container, false)
 
-        val dataSource = WazakerDatabase.getInstance(requireContext()).AzkaarDatabaseDao
-        val viewModelFactory = AzkaarViewModelFactory(dataSource)
+       // val azkaaradapter = MainAzkaarAdapter(dataList)
+        mainAzkaarAdapter = MainAzkaarAdapter(dataList)
 
-        viewModel = ViewModelProvider(this, viewModelFactory)[AzkaarViewModel::class.java]
-
-        binding.azkaarViewModel = viewModel
-        binding.lifecycleOwner = viewLifecycleOwner
-
-        val azkarAdapter = AzkaarAdapter()
-        azkarAdapter.submitList(azkaarList)
-
-        binding.rvAzkaar.apply {
-            adapter = azkarAdapter
-            layoutManager = LinearLayoutManager(requireContext())
+        binding.apply {
+            rvMainAzkaar.apply {
+                adapter = mainAzkaarAdapter
+                layoutManager = GridLayoutManager(requireContext(), 2, LinearLayoutManager.VERTICAL, false)
+            }
         }
 
-        setHasOptionsMenu(true)
+        prepareAzkaarList()
         return binding.root
     }
+    @SuppressLint("NotifyDataSetChanged")
+    private fun prepareAzkaarList() {
+        var azkaar =  MainAzkaarType("أذكاري", R.drawable.beads)
+        dataList.add(azkaar)
+        azkaar = MainAzkaarType("أذكار الصباح", R.drawable.sun)
+        dataList.add(azkaar)
+        azkaar = MainAzkaarType("أذكار المساء", R.drawable.night)
+        dataList.add(azkaar)
+        azkaar = MainAzkaarType("أذكار ختم الصلاة", R.drawable.ramadan)
+        dataList.add(azkaar)
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater?.inflate(R.menu.azkaar_add_menu, menu)
+        mainAzkaarAdapter.notifyDataSetChanged()
     }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item!!.itemId){
-            R.id.Add_menu -> showEditTextDialog()
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-
-    private fun showEditTextDialog() {
-        val builder = AlertDialog.Builder(requireContext())
-        val dialogLayout = layoutInflater.inflate(R.layout.add_layout, null)
-        val editText = dialogLayout.findViewById<EditText>(R.id.et_add)
-
-        with(builder){
-            setTitle("إضافة ذكر")
-            setPositiveButton("إضافة"){dialog, which ->
-                val zekr = editText.text
-                if(!zekr.isNullOrEmpty()) {
-                    viewModel.addZekr(zekr.toString())
-                    Toast.makeText(requireContext(), "تم إضافة الذكر", Toast.LENGTH_SHORT).show()
-                }
-                else{
-                    Toast.makeText(requireContext(), "يرجى كتابة ذكر!", Toast.LENGTH_SHORT).show()
-                }
-            }
-            setNegativeButton("إلغاء"){dialog, which ->
-                Log.d("Main","Negative Button has Clikced")
-            }
-            setView(dialogLayout)
-            show()
-        }
-    }
-
 }

@@ -12,13 +12,13 @@ import java.time.LocalDateTime
 interface HistoryDatabaseDao {
 
     @Upsert
-    fun update(day: DayHistory)
+    suspend fun update(day: DayHistory)
 
     @Delete
-    fun deleteDay(day: DayHistory)
+    suspend fun deleteDay(day: DayHistory)
 
     @Query("DELETE FROM Azkaar_History_Table")
-    fun clear()
+    suspend fun clear()
 
     @Query("SELECT * FROM Azkaar_History_Table WHERE Local_Date_Time = :day ORDER BY Local_Date_Time ASC")
     fun getDay(day: Long): LiveData<List<DayHistory>>

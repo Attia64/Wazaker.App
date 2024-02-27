@@ -6,10 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.attia.wazaker.database.WazakerDatabase
 import com.attia.wazaker.databinding.FragmentHistoryBinding
 
-// TODO: Changed the fragment like the previous
 class HistoryFragment : Fragment() {
 
     private lateinit var binding: FragmentHistoryBinding
@@ -21,12 +19,8 @@ class HistoryFragment : Fragment() {
     ): View {
         binding = FragmentHistoryBinding.inflate(inflater, container, false)
 
-        val datasource = WazakerDatabase.getInstance(requireContext()).historyDatabaseDao
 
-        val viewModelFactory = HistoryViewModelFactory(datasource)
-
-        val historyViewModel = ViewModelProvider(
-            this, viewModelFactory)[HistoryViewModel::class.java]
+        val historyViewModel = ViewModelProvider(this)[HistoryViewModel::class.java]
 
         binding.historyViewModel = historyViewModel
 

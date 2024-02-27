@@ -12,4 +12,15 @@
     <string name="zekr1">أسْتَغْفِرُ اللهَ العَظِيمَ</string>
     <string name="counter_format">%s</string>
     <string name="stop_button">إيقاف</string>
+    <string name="morning_Azkaar">أذكار الصباح</string>
+    <string name="evening_Azkaar">أذكار المساء</string>
+    <string name="My_Azkaar">أذكاري</string>
+    <string name="sleep_Azkaar">أذكار النوم</string>
+    <string name="pray_Azkaar">أذكار ختم الصلاة</string>
+    <string name="Azkaar_Settings">إعدادات الأذكار</string>
+    <string name="play">Play</string>
+    <string name="stop">Stop</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="target">الهدف :</string>
 </resources>

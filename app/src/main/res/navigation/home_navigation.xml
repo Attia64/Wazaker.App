@@ -2,32 +2,42 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/home_navigaiton.xml"
+    android:id="@+id/home_navigation.xml"
     app:startDestination="@id/counterFragment">
-
-    <!-- TODO: These IDs is the same as in the bottom navigation menu -->
-    <fragment
-        android:id="@+id/azkaarFragment"
-        android:name="com.attia.wazaker.ui.fragments.azkaar.AzkaarFragment"
-        android:label="AzkaarFragment"
-        tools:layout="@layout/fragment_azkaar" >
-        <argument
-            android:name="Chosen_Zekr"
-            app:argType="string" />
-    </fragment>
-    <fragment
-        android:id="@+id/infoFragment"
-        android:name="com.attia.wazaker.ui.fragments.history.HistoryFragment"
-        android:label="InfoFragment"
-        tools:layout="@layout/fragment_history" />
-    <fragment
-        android:id="@+id/settingsFragment"
-        android:name="com.attia.wazaker.ui.fragments.settings.SettingsFragment"
-        android:label="SettingsFragment"
-        tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/counterFragment"
         android:name="com.attia.wazaker.ui.fragments.counter.CounterFragment"
-        android:label="fragment_settings"
-        tools:layout="@layout/fragment_counter" />
+        android:label="CounterFragment" />
+    <fragment
+        android:id="@+id/azkaarFragment"
+        android:name="com.attia.wazaker.ui.fragments.azkaar.AzkaarFragment"
+        android:label="AzkaarFragment" >
+        <action
+            android:id="@+id/action_azkaarFragment_to_myAzkaarFragment"
+            app:destination="@id/myAzkaarFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.attia.wazaker.ui.fragments.settings.SettingsFragment"
+        android:label="SettingsFragment" />
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.attia.wazaker.ui.fragments.history.HistoryFragment"
+        android:label="HistoryFragment" />
+    <fragment
+        android:id="@+id/myAzkaarFragment"
+        android:name="com.attia.wazaker.ui.fragments.azkaar.myazkaar.MyAzkaarFragment"
+        android:label="MyAzkaarFragment" >
+        <action
+            android:id="@+id/action_myAzkaarFragment_to_azkaarFragment"
+            app:destination="@id/azkaarFragment"
+            app:popUpTo="@id/azkaarFragment" />
+        <action
+            android:id="@+id/action_myAzkaarFragment_to_counterFragment"
+            app:destination="@id/counterFragment" />
+    </fragment>
+    <argument
+        android:name="passedZekr"
+        app:argType="string"
+        android:defaultValue="الحمدلله" />
 </navigation>

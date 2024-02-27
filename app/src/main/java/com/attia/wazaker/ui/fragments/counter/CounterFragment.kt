@@ -26,18 +26,22 @@ class CounterFragment : Fragment() {
 
         viewModel = ViewModelProvider(this)[CounterViewModel::class.java]
 
-        
+
         binding.counterViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
 
-        binding.btnStep.setOnClickListener{
+        binding.btnStep.setOnClickListener {
             showStepDialog()
         }
 
+        if (viewModel.isRunning) {
+            binding.chCounter.start()
+        }
 
         return binding.root
     }
+
 
     private fun showStepDialog() {
         val builder = AlertDialog.Builder(requireContext())
