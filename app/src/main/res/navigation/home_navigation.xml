@@ -7,27 +7,31 @@
     <fragment
         android:id="@+id/counterFragment"
         android:name="com.attia.wazaker.ui.fragments.counter.CounterFragment"
-        android:label="CounterFragment" />
+        android:label="CounterFragment">
+        <argument
+            android:name="chossenzekr"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/azkaarFragment"
         android:name="com.attia.wazaker.ui.fragments.azkaar.AzkaarFragment"
-        android:label="AzkaarFragment" >
+        android:label="AzkaarFragment">
         <action
             android:id="@+id/action_azkaarFragment_to_myAzkaarFragment"
             app:destination="@id/myAzkaarFragment" />
+        <action
+            android:id="@+id/action_azkaarFragment_to_specificAzkaarFragment"
+            app:destination="@id/specificAzkaarFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/settingsFragment"
-        android:name="com.attia.wazaker.ui.fragments.settings.SettingsFragment"
-        android:label="SettingsFragment" />
     <fragment
         android:id="@+id/historyFragment"
         android:name="com.attia.wazaker.ui.fragments.history.HistoryFragment"
-        android:label="HistoryFragment" />
+        android:label="HistoryFragment">
+    </fragment>
     <fragment
         android:id="@+id/myAzkaarFragment"
         android:name="com.attia.wazaker.ui.fragments.azkaar.myazkaar.MyAzkaarFragment"
-        android:label="MyAzkaarFragment" >
+        android:label="MyAzkaarFragment">
         <action
             android:id="@+id/action_myAzkaarFragment_to_azkaarFragment"
             app:destination="@id/azkaarFragment"
@@ -36,8 +40,13 @@
             android:id="@+id/action_myAzkaarFragment_to_counterFragment"
             app:destination="@id/counterFragment" />
     </fragment>
-    <argument
-        android:name="passedZekr"
-        app:argType="string"
-        android:defaultValue="الحمدلله" />
+    <fragment
+        android:id="@+id/specificAzkaarFragment"
+        android:name="com.attia.wazaker.ui.fragments.azkaar.specificazkaar.SpecificAzkaarFragment"
+        android:label="SpecificAzkaarFragment">
+        <argument
+            android:name="cardposition"
+            app:argType="integer" />
+    </fragment>
+
 </navigation>

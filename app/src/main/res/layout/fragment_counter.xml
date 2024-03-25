@@ -36,18 +36,19 @@
             android:layout_width="52dp"
             android:layout_height="28dp"
             android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/view2"
             app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline2" />
+            app:layout_constraintStart_toStartOf="@id/view2"
+            app:layout_constraintTop_toTopOf="@+id/view2"
+            app:layout_constraintBottom_toBottomOf="@id/view2"/>
 
         <TextView
             android:id="@+id/tvAzkaar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/zekr1"
             android:textColor="@color/white"
             android:textSize="28sp"
+            android:text="@string/zekr1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline6" />
@@ -87,6 +88,21 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/textView"
             app:layout_constraintTop_toTopOf="@+id/guideline7" />
+
+        <ImageView
+            android:id="@+id/imSave"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/ic_save"
+            app:layout_constraintStart_toStartOf="@+id/guideline11"
+            app:layout_constraintTop_toTopOf="@+id/guideline7" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout"
@@ -135,6 +151,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/guideline4"
                 app:layout_constraintTop_toTopOf="parent" />
+
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline"
@@ -210,4 +227,5 @@
             app:layout_constraintGuide_percent="0.9" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

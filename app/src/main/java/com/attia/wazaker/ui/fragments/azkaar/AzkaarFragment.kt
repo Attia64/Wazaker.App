@@ -1,23 +1,29 @@
 package com.attia.wazaker.ui.fragments.azkaar
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.attia.wazaker.R
 import com.attia.wazaker.databinding.FragmentAzkaarBinding
-import com.attia.wazaker.ui.fragments.azkaar.myazkaar.MainAzkaarType
 
-class AzkaarFragment : Fragment() {
+class AzkaarFragment : Fragment(), MainAzkaarAdapter.OnItemClickListener {
 
 
     private lateinit var binding: FragmentAzkaarBinding
-    private var dataList = ArrayList<MainAzkaarType>()
-    private lateinit var mainAzkaarAdapter: MainAzkaarAdapter
+
+    private val dataList: List<MainAzkaarType> = listOf(
+        MainAzkaarType("أذكاري", R.drawable.beads),
+        MainAzkaarType("أذكار الصباح", R.drawable.sun),
+        MainAzkaarType("أذكار المساء", R.drawable.night),
+        MainAzkaarType("أذكار ختم الصلاة", R.drawable.ramadan),
+        MainAzkaarType("أذكار النوم", R.drawable.sleep),
+        MainAzkaarType("فضل الذكر", R.drawable.star)
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,30 +32,24 @@ class AzkaarFragment : Fragment() {
     ): View {
         binding = FragmentAzkaarBinding.inflate(inflater, container, false)
 
-       // val azkaaradapter = MainAzkaarAdapter(dataList)
-        mainAzkaarAdapter = MainAzkaarAdapter(dataList)
+       val mainAzkaarAdapter = MainAzkaarAdapter(this)
 
         binding.apply {
             rvMainAzkaar.apply {
                 adapter = mainAzkaarAdapter
-                layoutManager = GridLayoutManager(requireContext(), 2, LinearLayoutManager.VERTICAL, false)
+                layoutManager =
+                    GridLayoutManager(requireContext(), 2, LinearLayoutManager.VERTICAL, false)
+                mainAzkaarAdapter.submitList(dataList)
             }
         }
 
-        prepareAzkaarList()
         return binding.root
     }
-    @SuppressLint("NotifyDataSetChanged")
-    private fun prepareAzkaarList() {
-        var azkaar =  MainAzkaarType("أذكاري", R.drawable.beads)
-        dataList.add(azkaar)
-        azkaar = MainAzkaarType("أذكار الصباح", R.drawable.sun)
-        dataList.add(azkaar)
-        azkaar = MainAzkaarType("أذكار المساء", R.drawable.night)
-        dataList.add(azkaar)
-        azkaar = MainAzkaarType("أذكار ختم الصلاة", R.drawable.ramadan)
-        dataList.add(azkaar)
 
-        mainAzkaarAdapter.notifyDataSetChanged()
+    override fun onItemClick(position: Int) {
+        when (position) {
+            0 -> findNavController().navigate(R.id.action_azkaarFragment_to_myAzkaarFragment)
+            1, 2, 3, 4 -> findNavController().navigate(AzkaarFragmentDirections.actionAzkaarFragmentToSpecificAzkaarFragment(position))
+        }
     }
 }

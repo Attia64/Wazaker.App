@@ -4,25 +4,20 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Query
-import androidx.room.Update
 import androidx.room.Upsert
-import java.time.LocalDateTime
 
 @Dao
 interface HistoryDatabaseDao {
 
     @Upsert
-    suspend fun update(day: DayHistory)
+    suspend fun upsertHistoryField(day: AzkaarHistory)
+
+    @Query("SELECT * FROM Azkaar_History_Table ORDER BY zekrId ASC")
+    fun getAll(): LiveData<List<AzkaarHistory>>
 
     @Delete
-    suspend fun deleteDay(day: DayHistory)
+    suspend fun deleteDay(element: AzkaarHistory)
 
     @Query("DELETE FROM Azkaar_History_Table")
     suspend fun clear()
-
-    @Query("SELECT * FROM Azkaar_History_Table WHERE Local_Date_Time = :day ORDER BY Local_Date_Time ASC")
-    fun getDay(day: Long): LiveData<List<DayHistory>>
-
-    @Query("SELECT * FROM Azkaar_History_Table ORDER BY Local_Date_Time ASC LIMIT 30")
-    fun getAll(): LiveData<List<DayHistory>>
 }

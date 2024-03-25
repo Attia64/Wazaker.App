@@ -5,7 +5,7 @@
     <string name="counter">العداد</string>
     <string name="azkaar">الأذكار</string>
     <string name="settings">الإعدادات</string>
-    <string name="about_us">عنا</string>
+    <string name="history">سجل الذكر</string>
     <string name="reset">إعادة بدء</string>
     <string name="step">الخطوة</string>
     <string name="goal">الهدف</string>
@@ -20,7 +20,8 @@
     <string name="Azkaar_Settings">إعدادات الأذكار</string>
     <string name="play">Play</string>
     <string name="stop">Stop</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="target">الهدف :</string>
+    <string name="cardposition">CardPosition</string>
+
 </resources>

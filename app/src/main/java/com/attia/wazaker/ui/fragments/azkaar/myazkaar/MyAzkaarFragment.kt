@@ -4,9 +4,6 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
@@ -21,11 +18,10 @@ import com.attia.wazaker.databinding.FragmentMyAzkaarBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MyAzkaarFragment : Fragment() {
+class MyAzkaarFragment : Fragment(), MyAzkaarAdapter.MyAzkaarcClick {
 
     private lateinit var binding: FragmentMyAzkaarBinding
     private lateinit var viewModel: MyAzkaarViewModel
-    private lateinit var azkaardAdapter: MyAzkaarAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,15 +29,25 @@ class MyAzkaarFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMyAzkaarBinding.inflate(inflater, container, false)
-        setUpRecyclerView()
+
+        val myAzkaarAdapter = MyAzkaarAdapter(this)
+
+        binding.apply {
+            rvAzkaar.apply {
+                adapter = myAzkaarAdapter
+                layoutManager = LinearLayoutManager(requireContext())
+            }
+
+        }
+
         viewModel = ViewModelProvider(this)[MyAzkaarViewModel::class.java]
 
         binding.azkaarViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
 
-        viewModel.azkaarList.observe(viewLifecycleOwner, Observer{ it ->
-            azkaardAdapter.submitList(it)
+        viewModel.azkaarList.observe(viewLifecycleOwner, Observer { it ->
+            myAzkaarAdapter.submitList(it)
         })
 
         binding.ivAddButton.setOnClickListener {
@@ -56,14 +62,9 @@ class MyAzkaarFragment : Fragment() {
         return binding.root
     }
 
-    private fun setUpRecyclerView() {
-        binding.rvAzkaar.apply {
-            azkaardAdapter = MyAzkaarAdapter()
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = azkaardAdapter
-        }
+    override fun onAzkaarClick(chosenZekr: String) {
+        findNavController().navigate(MyAzkaarFragmentDirections.actionMyAzkaarFragmentToCounterFragment(chosenZekr))
     }
-
 
     private fun showEditTextDialog() {
         val builder = AlertDialog.Builder(requireContext())

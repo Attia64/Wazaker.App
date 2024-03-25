@@ -9,7 +9,9 @@ import com.attia.wazaker.database.Azkaar
 import com.attia.wazaker.databinding.MyAzkaarAdapterLayoutBinding
 
 
-class MyAzkaarAdapter : ListAdapter<Azkaar, MyAzkaarAdapter.AzkaarViewHolder>(AzkarDiffer()) {
+class MyAzkaarAdapter(
+    val listener: MyAzkaarcClick
+) : ListAdapter<Azkaar, MyAzkaarAdapter.AzkaarViewHolder>(AzkarDiffer()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AzkaarViewHolder {
         return AzkaarViewHolder(
@@ -22,15 +24,16 @@ class MyAzkaarAdapter : ListAdapter<Azkaar, MyAzkaarAdapter.AzkaarViewHolder>(Az
     }
 
     class AzkaarViewHolder(val binding: MyAzkaarAdapterLayoutBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+        RecyclerView.ViewHolder(binding.root)
 
-        fun bind(item: Azkaar) {
-            binding.zekr = item
+    override fun onBindViewHolder(holder: AzkaarViewHolder, position: Int) {
+        holder.binding.apply {
+            zekr = currentList[position]
+            root.setOnClickListener {
+                listener.onAzkaarClick(currentList[position].zekr)
+            }
         }
     }
-
-    override fun onBindViewHolder(holder: AzkaarViewHolder, position: Int) =
-        holder.bind(getItem(position))
 
 
     private class AzkarDiffer : DiffUtil.ItemCallback<Azkaar>() {
@@ -41,5 +44,9 @@ class MyAzkaarAdapter : ListAdapter<Azkaar, MyAzkaarAdapter.AzkaarViewHolder>(Az
         override fun areContentsTheSame(oldItem: Azkaar, newItem: Azkaar): Boolean {
             return newItem.zekrId == oldItem.zekrId
         }
+    }
+
+    interface MyAzkaarcClick {
+        fun onAzkaarClick(chosenZekr: String)
     }
 }

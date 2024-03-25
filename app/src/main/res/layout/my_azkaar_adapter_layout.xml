@@ -23,6 +23,7 @@
             android:layout_margin="3dp"
             android:text ="@{zekr.zekr}"
             android:textColor="@color/white"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:layout_gravity="center"/>
     </LinearLayout>
 </layout>

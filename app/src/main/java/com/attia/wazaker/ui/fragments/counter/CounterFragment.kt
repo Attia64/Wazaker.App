@@ -10,13 +10,22 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import com.attia.wazaker.databinding.FragmentCounterBinding
 import com.attia.wazaker.R
+import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
+
+@AndroidEntryPoint
 class CounterFragment : Fragment() {
 
     private lateinit var binding: FragmentCounterBinding
+    val args: CounterFragmentArgs by navArgs()
     private lateinit var viewModel: CounterViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,13 +40,18 @@ class CounterFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
 
+
         binding.btnStep.setOnClickListener {
             showStepDialog()
         }
 
-        if (viewModel.isRunning) {
-            binding.chCounter.start()
+        binding.imSave.setOnClickListener {
+            val zekrName = binding.tvAzkaar.text.toString()
+            val numcount = binding.tvCounterShower.text.toString().toInt()
+            val time = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
+            viewModel.addHistory(zekrName, time, numcount)
         }
+
 
         return binding.root
     }

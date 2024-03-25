@@ -1,4 +1,4 @@
-package com.attia.wazaker.ui.fragments.azkaar.myazkaar
+package com.attia.wazaker.ui.fragments.azkaar
 
 data class MainAzkaarType (
     val title: String,

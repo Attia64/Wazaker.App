@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="historyViewModel"
             type="com.attia.wazaker.ui.fragments.history.HistoryViewModel" />
@@ -14,17 +15,14 @@
         android:layout_height="match_parent"
         tools:context=".ui.fragments.counter.CounterFragment">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="info will be here"
-            android:textColor="@color/white"
-            android:textSize="30sp"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvhistory"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="HardcodedText" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,18 +1,22 @@
 package com.attia.wazaker.ui.fragments.counter
 
-import android.os.Handler
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.attia.wazaker.database.AzkaarHistory
+import com.attia.wazaker.database.HistoryDatabaseDao
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+import javax.inject.Named
 
-class CounterViewModel : ViewModel() {
+@HiltViewModel
+class CounterViewModel @Inject constructor(@Named("DaoHistory") private val historyDao: HistoryDatabaseDao) :
+    ViewModel() {
 
-
-    private var check = 0
-    private var seconds = 0L
-
-    var automated = false
-    var isRunning = false
 
     var step = MutableLiveData(1)
 
@@ -21,32 +25,18 @@ class CounterViewModel : ViewModel() {
         get() = _counter
 
     fun increaseCounter() {
-        if (!isRunning) {
-            isRunning = true
-        }
         _counter.value = step.value?.let { (_counter.value)?.plus(it) }
-
-        if(automated && check < 4){
-            check++
-        }
     }
 
     fun restCounter() {
         _counter.value = 0
     }
 
-    fun runAutomationTasbih() {
-
-        val handler = Handler()
-        if(check < 4) {
-            handler.postDelayed({
-                seconds += 1000
-            }, 1000)
+    fun addHistory(zekr: String, date: String , count: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            historyDao.upsertHistoryField(AzkaarHistory(0, zekr, date, count))
         }
-
-        handler.postDelayed({
-            _counter.value = step.value?.let { (_counter.value)?.plus(it) }
-        }, seconds)
     }
+
 
 }

@@ -18,7 +18,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,18 +33,4 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.homeNavHost) as NavHostFragment
         binding.bottomNav.setupWithNavController(navHostFragment.navController)
     }
-
-/*
-    private fun controlBottomNav() {
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            if(destination.id == R.id.myAzkaarFragment) {
-                binding.bottomNav.visibility = View.GONE
-            }
-            else {
-                binding.bottomNav.visibility = View.VISIBLE
-            }
-
-        }
-    }
- */
 }

@@ -9,11 +9,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import javax.inject.Named
 
 @HiltViewModel
-class MyAzkaarViewModel @Inject constructor(private val azkaarDao: AzkaarDatabaseDao) : ViewModel() {
+class MyAzkaarViewModel @Inject constructor(@Named("DaoAzkaar")private val azkaarDao: AzkaarDatabaseDao) :
+    ViewModel() {
 
- //   private var _azkaarList = MutableLiveData<List<Azkaar>>()
     fun addZekr(passedZekr: String) {
         viewModelScope.launch(Dispatchers.IO) {
             azkaarDao.upsert(Azkaar(0, passedZekr))
