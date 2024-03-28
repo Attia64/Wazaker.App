@@ -7,13 +7,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.attia.wazaker.databinding.SpecifcAzkaarViewholderLayoutBinding
-import com.attia.wazaker.ui.fragments.azkaar.MainAzkaarAdapter
 
 
 class SpecificAzkaarAdapter(
-    val listener: MainAzkaarAdapter.OnItemClickListener
+    val listener: (Int) -> Unit
 ) :
-    ListAdapter<SpecficAzkaarType, SpecificAzkaarAdapter.SpecificViewHolder>(SpecificAzkaarDiffer()) {
+    ListAdapter<SpecficAzkaarType, SpecificAzkaarAdapter.SpecificViewHolder>(SpecificAzkaarDiffer) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SpecificViewHolder {
@@ -31,7 +30,7 @@ class SpecificAzkaarAdapter(
             tvzekr.text = currentList[position].zekr
             tvProgress.text = currentList[position].count.toString()
             root.setOnClickListener {
-                listener.onItemClick(position)
+                listener(position)
             }
         }
     }
@@ -40,19 +39,19 @@ class SpecificAzkaarAdapter(
         RecyclerView.ViewHolder(binding.root)
 
 
-    class SpecificAzkaarDiffer : DiffUtil.ItemCallback<SpecficAzkaarType>() {
+    private object SpecificAzkaarDiffer : DiffUtil.ItemCallback<SpecficAzkaarType>() {
         override fun areItemsTheSame(
             oldItem: SpecficAzkaarType,
             newItem: SpecficAzkaarType
         ): Boolean {
-            return newItem.zekr == oldItem.zekr
+            return newItem.id == oldItem.id
         }
 
         override fun areContentsTheSame(
             oldItem: SpecficAzkaarType,
             newItem: SpecficAzkaarType
         ): Boolean {
-            return newItem.zekr == oldItem.zekr
+            return newItem == oldItem
         }
     }
 }

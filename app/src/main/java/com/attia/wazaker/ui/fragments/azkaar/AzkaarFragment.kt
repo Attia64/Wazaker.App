@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.attia.wazaker.R
 import com.attia.wazaker.databinding.FragmentAzkaarBinding
 
-class AzkaarFragment : Fragment(), MainAzkaarAdapter.OnItemClickListener {
+class AzkaarFragment : Fragment() {
 
 
     private lateinit var binding: FragmentAzkaarBinding
@@ -32,24 +32,26 @@ class AzkaarFragment : Fragment(), MainAzkaarAdapter.OnItemClickListener {
     ): View {
         binding = FragmentAzkaarBinding.inflate(inflater, container, false)
 
-       val mainAzkaarAdapter = MainAzkaarAdapter(this)
-
-        binding.apply {
-            rvMainAzkaar.apply {
-                adapter = mainAzkaarAdapter
-                layoutManager =
-                    GridLayoutManager(requireContext(), 2, LinearLayoutManager.VERTICAL, false)
-                mainAzkaarAdapter.submitList(dataList)
+        val mainAzkaarAdapter = MainAzkaarAdapter(listener = { position ->
+            when (position) {
+                0 -> findNavController().navigate(R.id.action_azkaarFragment_to_myAzkaarFragment)
+                1, 2, 3, 4 -> findNavController().navigate(
+                    AzkaarFragmentDirections.actionAzkaarFragmentToSpecificAzkaarFragment(
+                        position
+                    )
+                )
             }
+
+        })
+
+
+        binding.rvMainAzkaar.apply {
+            adapter = mainAzkaarAdapter
+            layoutManager =
+                GridLayoutManager(requireContext(), 2, LinearLayoutManager.VERTICAL, false)
+            mainAzkaarAdapter.submitList(dataList)
         }
 
         return binding.root
-    }
-
-    override fun onItemClick(position: Int) {
-        when (position) {
-            0 -> findNavController().navigate(R.id.action_azkaarFragment_to_myAzkaarFragment)
-            1, 2, 3, 4 -> findNavController().navigate(AzkaarFragmentDirections.actionAzkaarFragmentToSpecificAzkaarFragment(position))
-        }
     }
 }

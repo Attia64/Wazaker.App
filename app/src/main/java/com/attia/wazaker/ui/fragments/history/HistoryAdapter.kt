@@ -8,10 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.attia.wazaker.database.AzkaarHistory
 import com.attia.wazaker.databinding.HistoryViewholderLayoutBinding
 
-class HistoryAdapter : ListAdapter<AzkaarHistory, HistoryAdapter.HistoryViewHolder>(HistoryDiffer()) {
+class HistoryAdapter :
+    ListAdapter<AzkaarHistory, HistoryAdapter.HistoryViewHolder>(HistoryDiffer) {
 
     class HistoryViewHolder(val binding: HistoryViewholderLayoutBinding) :
         RecyclerView.ViewHolder(binding.root)
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
         return HistoryViewHolder(
             HistoryViewholderLayoutBinding.inflate(
@@ -29,13 +31,13 @@ class HistoryAdapter : ListAdapter<AzkaarHistory, HistoryAdapter.HistoryViewHold
 
     }
 
-    class HistoryDiffer : DiffUtil.ItemCallback<AzkaarHistory>() {
+    private object HistoryDiffer : DiffUtil.ItemCallback<AzkaarHistory>() {
         override fun areItemsTheSame(oldItem: AzkaarHistory, newItem: AzkaarHistory): Boolean {
             return newItem.zekrId == oldItem.zekrId
         }
 
         override fun areContentsTheSame(oldItem: AzkaarHistory, newItem: AzkaarHistory): Boolean {
-            return newItem.zekrId == oldItem.zekrId
+            return newItem == oldItem
         }
     }
 }

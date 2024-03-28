@@ -13,17 +13,13 @@ import com.attia.wazaker.databinding.FragmentSpecificAzkaarBinding
 import com.attia.wazaker.ui.fragments.azkaar.MainAzkaarAdapter
 
 
-
-class SpecificAzkaarFragment : Fragment(), MainAzkaarAdapter.OnItemClickListener {
-
-
+class SpecificAzkaarFragment : Fragment() {
 
 
     private lateinit var binding: FragmentSpecificAzkaarBinding
     private lateinit var viewModel: SpecificAzkaarViewModel
     val args: SpecificAzkaarFragmentArgs by navArgs()
 
-    private lateinit var submittedList: List<SpecficAzkaarType>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,12 +28,14 @@ class SpecificAzkaarFragment : Fragment(), MainAzkaarAdapter.OnItemClickListener
 
         binding = FragmentSpecificAzkaarBinding.inflate(inflater, container, false)
 
-        viewModel= ViewModelProvider(this)[SpecificAzkaarViewModel::class.java]
+        viewModel = ViewModelProvider(this)[SpecificAzkaarViewModel::class.java]
 
         viewModel.adListInit(args.cardposition)
 
 
-        val specificAzkaarAdapter = SpecificAzkaarAdapter(this)
+        val specificAzkaarAdapter = SpecificAzkaarAdapter(listener = { position ->
+            viewModel.progressTracker(position)
+        })
 
         binding.apply {
             rvSpecificAzkaar.apply {
@@ -54,9 +52,5 @@ class SpecificAzkaarFragment : Fragment(), MainAzkaarAdapter.OnItemClickListener
 
         return binding.root
 
-    }
-
-    override fun onItemClick(position: Int) {
-        viewModel.progressTracker(position)
     }
 }

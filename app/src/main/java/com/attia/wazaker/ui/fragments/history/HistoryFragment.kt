@@ -33,11 +33,10 @@ class HistoryFragment : Fragment() {
 
         val historyAdapter = HistoryAdapter()
 
-        binding.apply {
-            rvhistory.apply {
-                adapter = historyAdapter
-                layoutManager = LinearLayoutManager(requireContext())
-            }
+
+        binding.rvhistory.apply {
+            adapter = historyAdapter
+            layoutManager = LinearLayoutManager(requireContext())
         }
 
         historyViewModel.historyList.observe(viewLifecycleOwner, Observer { it ->

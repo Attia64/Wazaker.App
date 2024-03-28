@@ -10,8 +10,8 @@ import com.attia.wazaker.databinding.MyAzkaarAdapterLayoutBinding
 
 
 class MyAzkaarAdapter(
-    val listener: MyAzkaarcClick
-) : ListAdapter<Azkaar, MyAzkaarAdapter.AzkaarViewHolder>(AzkarDiffer()) {
+    val listener: (String) -> Unit
+) : ListAdapter<Azkaar, MyAzkaarAdapter.AzkaarViewHolder>(AzkarDiffer) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AzkaarViewHolder {
         return AzkaarViewHolder(
@@ -30,23 +30,19 @@ class MyAzkaarAdapter(
         holder.binding.apply {
             zekr = currentList[position]
             root.setOnClickListener {
-                listener.onAzkaarClick(currentList[position].zekr)
+                listener(currentList[position].zekr)
             }
         }
     }
 
 
-    private class AzkarDiffer : DiffUtil.ItemCallback<Azkaar>() {
+    private object AzkarDiffer : DiffUtil.ItemCallback<Azkaar>() {
         override fun areItemsTheSame(oldItem: Azkaar, newItem: Azkaar): Boolean {
             return newItem.zekrId == oldItem.zekrId
         }
 
         override fun areContentsTheSame(oldItem: Azkaar, newItem: Azkaar): Boolean {
-            return newItem.zekrId == oldItem.zekrId
+            return newItem == oldItem
         }
-    }
-
-    interface MyAzkaarcClick {
-        fun onAzkaarClick(chosenZekr: String)
     }
 }

@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.attia.wazaker.databinding.MainAzkaarViewholerBinding
 
 class MainAzkaarAdapter(
-    val listener: OnItemClickListener
+    val listener: (Int) -> Unit
 ) :
-    ListAdapter<MainAzkaarType, MainAzkaarAdapter.MainAzkaarViewHolder>(MainAzkaarDiffer()) {
+    ListAdapter<MainAzkaarType, MainAzkaarAdapter.MainAzkaarViewHolder>(MainAzkaarDiffer) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainAzkaarViewHolder {
         return MainAzkaarViewHolder(
@@ -27,7 +27,7 @@ class MainAzkaarAdapter(
             imMyAzkaar.setImageResource(currentList[position].img)
             tvTitle.text = currentList[position].title
             root.setOnClickListener {
-                listener.onItemClick(position)
+                listener(position)
             }
         }
     }
@@ -36,14 +36,14 @@ class MainAzkaarAdapter(
         RecyclerView.ViewHolder(binding.root)
 
 
-    private class MainAzkaarDiffer : DiffUtil.ItemCallback<MainAzkaarType>() {
+    private object MainAzkaarDiffer : DiffUtil.ItemCallback<MainAzkaarType>() {
         override fun areItemsTheSame(oldItem: MainAzkaarType, newItem: MainAzkaarType): Boolean {
             return newItem.img == oldItem.img
         }
 
 
         override fun areContentsTheSame(oldItem: MainAzkaarType, newItem: MainAzkaarType): Boolean {
-            return newItem.img == oldItem.img
+            return newItem == oldItem
         }
     }
 

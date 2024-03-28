@@ -18,7 +18,7 @@ import com.attia.wazaker.databinding.FragmentMyAzkaarBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MyAzkaarFragment : Fragment(), MyAzkaarAdapter.MyAzkaarcClick {
+class MyAzkaarFragment : Fragment() {
 
     private lateinit var binding: FragmentMyAzkaarBinding
     private lateinit var viewModel: MyAzkaarViewModel
@@ -30,15 +30,19 @@ class MyAzkaarFragment : Fragment(), MyAzkaarAdapter.MyAzkaarcClick {
     ): View {
         binding = FragmentMyAzkaarBinding.inflate(inflater, container, false)
 
-        val myAzkaarAdapter = MyAzkaarAdapter(this)
+        val myAzkaarAdapter = MyAzkaarAdapter(listener = { chosenZekr ->
+            findNavController().navigate(
+                MyAzkaarFragmentDirections.actionMyAzkaarFragmentToCounterFragment(
+                    chosenZekr
+                )
+            )
+        })
 
-        binding.apply {
-            rvAzkaar.apply {
-                adapter = myAzkaarAdapter
-                layoutManager = LinearLayoutManager(requireContext())
-            }
-
+        binding.rvAzkaar.apply {
+            adapter = myAzkaarAdapter
+            layoutManager = LinearLayoutManager(requireContext())
         }
+
 
         viewModel = ViewModelProvider(this)[MyAzkaarViewModel::class.java]
 
@@ -46,7 +50,7 @@ class MyAzkaarFragment : Fragment(), MyAzkaarAdapter.MyAzkaarcClick {
         binding.lifecycleOwner = viewLifecycleOwner
 
 
-        viewModel.azkaarList.observe(viewLifecycleOwner, Observer { it ->
+        viewModel.azkaarList.observe(viewLifecycleOwner, Observer {
             myAzkaarAdapter.submitList(it)
         })
 
@@ -60,10 +64,6 @@ class MyAzkaarFragment : Fragment(), MyAzkaarAdapter.MyAzkaarcClick {
 
 
         return binding.root
-    }
-
-    override fun onAzkaarClick(chosenZekr: String) {
-        findNavController().navigate(MyAzkaarFragmentDirections.actionMyAzkaarFragmentToCounterFragment(chosenZekr))
     }
 
     private fun showEditTextDialog() {
