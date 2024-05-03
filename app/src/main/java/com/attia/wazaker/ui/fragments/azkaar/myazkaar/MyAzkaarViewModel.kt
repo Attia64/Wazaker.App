@@ -21,6 +21,12 @@ class MyAzkaarViewModel @Inject constructor(@Named("DaoAzkaar")private val azkaa
         }
     }
 
+    fun deleteItem(zekr: Azkaar) {
+        viewModelScope.launch(Dispatchers.IO) {
+            azkaarDao.deletezekr(zekr)
+        }
+    }
+
     val azkaarList: LiveData<List<Azkaar>> = azkaarDao.getAll()
 
 }

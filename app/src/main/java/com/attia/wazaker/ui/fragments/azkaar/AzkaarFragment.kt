@@ -35,7 +35,7 @@ class AzkaarFragment : Fragment() {
         val mainAzkaarAdapter = MainAzkaarAdapter(listener = { position ->
             when (position) {
                 0 -> findNavController().navigate(R.id.action_azkaarFragment_to_myAzkaarFragment)
-                1, 2, 3, 4 -> findNavController().navigate(
+                1, 2, 3, 4, 5 -> findNavController().navigate(
                     AzkaarFragmentDirections.actionAzkaarFragmentToSpecificAzkaarFragment(
                         position
                     )

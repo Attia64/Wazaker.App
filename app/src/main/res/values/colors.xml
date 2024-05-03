@@ -2,17 +2,14 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="ActionBar">#336B6C</color>
-    <color name="background1">#143739</color>
-    <color name="UnderLined">#A59A9A</color>
-    <color name="mainColor2">#0C2038</color>
-    <color name="mainColor1">#0F2743</color>
+    <color name="MainColor">#336B6C</color>
+    <color name="MainColor2">#143739</color>
+    <color name="Gray">#A59A9A</color>
     <color name="azcolor">#08638C</color>
     <color name="Primarycolor">#ff005abb</color>
-    <color name="colorAcent">#fff06b00</color>
     <color name="start_azkaar_view_color">#031313</color>
     <color name="center_azkaar_view_color">#0E2A2B</color>
     <color name="end_azkaar_view_color">#195356</color>
-    <color name="counter_text">#FDBF6A</color>
+    <color name="BTCustomColor">#FDBF6A</color>
     <color name="counter_background_tool">#214042</color>
 </resources>

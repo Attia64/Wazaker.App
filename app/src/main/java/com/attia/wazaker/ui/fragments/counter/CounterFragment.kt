@@ -1,15 +1,22 @@
 package com.attia.wazaker.ui.fragments.counter
 
-import android.app.AlertDialog
+
+import android.annotation.SuppressLint
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
+import android.text.InputType
 import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.attia.wazaker.databinding.FragmentCounterBinding
 import com.attia.wazaker.R
@@ -23,9 +30,11 @@ import java.util.Locale
 class CounterFragment : Fragment() {
 
     private lateinit var binding: FragmentCounterBinding
-    val args: CounterFragmentArgs by navArgs()
     private lateinit var viewModel: CounterViewModel
+    private var isRunning = false
+    private val args: CounterFragmentArgs by navArgs()
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,10 +48,53 @@ class CounterFragment : Fragment() {
         binding.counterViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-
+        binding.apply {
+            btnPlay.setOnClickListener {
+                if (isRunning) {
+                    btnPlay.setImageResource(R.drawable.ic_pause)
+                    chCounter.start()
+                    viewModel.flag = true
+                    viewModel.automationTasbih()
+                    isRunning = false
+                } else {
+                    btnPlay.setImageResource(R.drawable.ic_play_button)
+                    chCounter.stop()
+                    viewModel.flag = false
+                    isRunning = true
+                }
+            }
+        }
 
         binding.btnStep.setOnClickListener {
-            showStepDialog()
+            showDialog("إضافة مقدار العدة") { value ->
+                if (value.isEmpty() || value.toInt() <= 0) {
+                    Toast.makeText(
+                        requireContext(),
+                        "لايمكن أن تكون العدة أقل من 1",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    viewModel.step.value = value.toInt()
+                }
+            }
+
+        }
+        binding.btnGoal.setOnClickListener {
+            showDialog("إضافة هدف") { value ->
+                if (value.isEmpty() || value.toInt() < 1) {
+                    Toast.makeText(
+                        requireContext(),
+                        "لايمكن أن يكون الهدف أقل من 1",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    binding.tvGoal.text = "الهدف : $value"
+                }
+            }
+        }
+
+        binding.tvAzkaar.setOnClickListener {
+            findNavController().navigate(CounterFragmentDirections.actionCounterFragmentToMyAzkaarFragment())
         }
 
         binding.imSave.setOnClickListener {
@@ -50,33 +102,34 @@ class CounterFragment : Fragment() {
             val numcount = binding.tvCounterShower.text.toString().toInt()
             val time = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
             viewModel.addHistory(zekrName, time, numcount)
+            Toast.makeText(requireContext(), "تم الإضافة إلي سجل الذكر", Toast.LENGTH_SHORT).show()
         }
+
 
 
         return binding.root
     }
 
 
-    private fun showStepDialog() {
-        val builder = AlertDialog.Builder(requireContext())
-        val dialogLayout = layoutInflater.inflate(R.layout.step_dialog_layout, null)
-        val editText = dialogLayout.findViewById<EditText>(R.id.et_step)
-
-        with(builder) {
-            setTitle("إضافة مقدار العدة")
-            setPositiveButton("حسناً") { _, _ ->
-                val stepVal = editText.text.toString().toInt()
-                if (stepVal > 0) {
-                    viewModel.step.value = editText.text.toString().toInt()
-                } else
-                    Toast.makeText(requireContext(), "يرجى إدخال قيمة صحيحة", Toast.LENGTH_SHORT)
-                        .show()
-            }
-            setNegativeButton("إلغاء") { _, _ ->
-                Log.d("Main", "Negative Button has Clicked")
-            }
-            setView(dialogLayout)
-            show()
+    fun showDialog(text: String, task: (String) -> (Unit)) {
+        val layout = layoutInflater.inflate(R.layout.add_layout, null)
+        val title = layout.findViewById<TextView>(R.id.tvTitle)
+        val dialog = Dialog(requireContext())
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        title.text = text
+        dialog.setContentView(layout)
+        val posBtn = layout.findViewById<Button>(R.id.btnOK)
+        val negBtn = layout.findViewById<View>(R.id.btnCancel)
+        val editTextValue = layout.findViewById<EditText>(R.id.etDialog)
+        editTextValue.inputType = InputType.TYPE_CLASS_NUMBER
+        posBtn.setOnClickListener {
+            task(editTextValue.text.toString())
+            dialog.dismiss()
         }
+        negBtn.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
     }
+
 }

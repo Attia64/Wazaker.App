@@ -27,28 +27,34 @@
             android:layout_height="40dp"
             android:alpha="0.1"
             android:background="@drawable/chronometer_layout_background"
+            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
         <Chronometer
             android:id="@+id/ch_counter"
-            android:layout_width="52dp"
-            android:layout_height="28dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="@id/view2"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="@id/view2"
-            app:layout_constraintTop_toTopOf="@+id/view2"
-            app:layout_constraintBottom_toBottomOf="@id/view2"/>
+            android:textSize="20sp"
+            android:fontFamily="@font/changalight"
+            app:layout_constraintBottom_toBottomOf="@+id/view2"
+            app:layout_constraintEnd_toEndOf="@+id/view2"
+            app:layout_constraintStart_toStartOf="@+id/view2"
+            app:layout_constraintTop_toTopOf="@+id/view2" />
 
         <TextView
             android:id="@+id/tvAzkaar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="28sp"
+            android:fontFamily="@font/changalight"
             android:text="@string/zekr1"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline6" />
@@ -58,7 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{@string/counter_format(counterViewModel.counter)}"
-            android:textColor="@color/counter_text"
+            android:textColor="@color/BTCustomColor"
             android:textSize="90sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -67,9 +73,10 @@
 
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tvGoal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/changalight"
             android:text="@string/target"
             android:textColor="@color/white"
             android:textSize="18sp"
@@ -77,17 +84,6 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline10"
             app:layout_constraintTop_toTopOf="@+id/guideline7" />
 
-        <TextView
-            android:id="@+id/tvAzkaarTarget"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:text="100"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/textView"
-            app:layout_constraintTop_toTopOf="@+id/guideline7" />
 
         <ImageView
             android:id="@+id/imSave"

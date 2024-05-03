@@ -10,7 +10,12 @@
         android:label="CounterFragment">
         <argument
             android:name="chossenzekr"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="true"/>
+        <action
+            android:id="@+id/action_counterFragment_to_myAzkaarFragment"
+            app:destination="@id/myAzkaarFragment"
+            app:popUpTo="@id/counterFragment" />
     </fragment>
     <fragment
         android:id="@+id/azkaarFragment"
@@ -38,7 +43,8 @@
             app:popUpTo="@id/azkaarFragment" />
         <action
             android:id="@+id/action_myAzkaarFragment_to_counterFragment"
-            app:destination="@id/counterFragment" />
+            app:destination="@id/counterFragment"
+            app:popUpTo="@id/myAzkaarFragment" />
     </fragment>
     <fragment
         android:id="@+id/specificAzkaarFragment"
@@ -47,6 +53,10 @@
         <argument
             android:name="cardposition"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_specificAzkaarFragment_to_azkaarFragment"
+            app:destination="@id/azkaarFragment"
+            app:popUpTo="@id/specificAzkaarFragment" />
     </fragment>
 
 </navigation>

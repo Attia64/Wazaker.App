@@ -16,7 +16,7 @@ interface HistoryDatabaseDao {
     fun getAll(): LiveData<List<AzkaarHistory>>
 
     @Delete
-    suspend fun deleteDay(element: AzkaarHistory)
+    suspend fun delete(element: AzkaarHistory)
 
     @Query("DELETE FROM Azkaar_History_Table")
     suspend fun clear()

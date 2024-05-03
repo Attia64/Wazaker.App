@@ -3,7 +3,7 @@
     <item>
         <shape
             android:shape="ring"
-            android:thickness="5dp"
+            android:thickness="3dp"
             android:useLevel="false">
             <solid android:color="#DDD" />
         </shape>
@@ -14,9 +14,9 @@
             android:toDegrees="270">
         <shape
             android:shape="ring"
-            android:thickness="5dp"
+            android:thickness="3dp"
             android:useLevel="true">
-            <solid android:color="@color/counter_text" />
+            <solid android:color="@color/BTCustomColor" />
         </shape>
         </rotate>
     </item>

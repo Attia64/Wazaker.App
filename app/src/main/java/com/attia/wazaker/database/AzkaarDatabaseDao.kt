@@ -16,6 +16,6 @@ interface AzkaarDatabaseDao {
     fun getAll(): LiveData<List<Azkaar>>
 
     @Delete
-    suspend fun deletezekr(zekr: Azkaar)
+    suspend fun deletezekr(zekrid: Azkaar)
 
 }

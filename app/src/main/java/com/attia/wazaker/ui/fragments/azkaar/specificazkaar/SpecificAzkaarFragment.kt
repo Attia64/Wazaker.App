@@ -7,10 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.attia.wazaker.databinding.FragmentSpecificAzkaarBinding
-import com.attia.wazaker.ui.fragments.azkaar.MainAzkaarAdapter
 
 
 class SpecificAzkaarFragment : Fragment() {
@@ -30,12 +30,16 @@ class SpecificAzkaarFragment : Fragment() {
 
         viewModel = ViewModelProvider(this)[SpecificAzkaarViewModel::class.java]
 
-        viewModel.adListInit(args.cardposition)
 
+        binding.imBackButton.setOnClickListener {
+            findNavController().navigate(SpecificAzkaarFragmentDirections.actionSpecificAzkaarFragmentToAzkaarFragment())
+        }
+
+        viewModel.adListInit(args.cardposition)
 
         val specificAzkaarAdapter = SpecificAzkaarAdapter(listener = { position ->
             viewModel.progressTracker(position)
-        })
+        }, args.cardposition)
 
         binding.apply {
             rvSpecificAzkaar.apply {

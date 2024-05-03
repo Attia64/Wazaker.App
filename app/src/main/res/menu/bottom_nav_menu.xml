@@ -14,7 +14,7 @@
 
     <item
         android:id="@+id/historyFragment"
-        android:icon="@drawable/info_selector"
+        android:icon="@drawable/ic_home_selector"
         android:title="@string/history" />
 
 </menu>

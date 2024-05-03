@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -11,14 +12,40 @@
         android:layout_height="match_parent"
         android:background="@drawable/wazakerbackground">
 
+
+        <View
+            android:id="@+id/Specific_Action_bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/MainColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/im_back_button"
+            android:layout_width="32dp"
+            android:layout_height="26dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.042"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvSpecificAzkaar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/Specific_Action_bar"
+            app:layout_constraintVertical_bias="1.0"
+            tools:listitem="@layout/specifc_azkaar_viewholder_layout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
