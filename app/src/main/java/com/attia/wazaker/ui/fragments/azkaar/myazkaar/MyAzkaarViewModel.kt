@@ -4,29 +4,27 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.attia.wazaker.database.Azkaar
-import com.attia.wazaker.database.AzkaarDatabaseDao
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import javax.inject.Named
 
 @HiltViewModel
-class MyAzkaarViewModel @Inject constructor(@Named("DaoAzkaar")private val azkaarDao: AzkaarDatabaseDao) :
+class MyAzkaarViewModel @Inject constructor(private val myAzkaarRepository: MyAzkaarRepository) :
     ViewModel() {
 
     fun addZekr(passedZekr: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            azkaarDao.upsert(Azkaar(0, passedZekr))
+            myAzkaarRepository.addZekr(passedZekr)
         }
     }
 
     fun deleteItem(zekr: Azkaar) {
         viewModelScope.launch(Dispatchers.IO) {
-            azkaarDao.deletezekr(zekr)
+            myAzkaarRepository.deleteItem(zekr)
         }
     }
 
-    val azkaarList: LiveData<List<Azkaar>> = azkaarDao.getAll()
+    val azkaarList: LiveData<List<Azkaar>> = myAzkaarRepository.getAzkaarList()
 
 }

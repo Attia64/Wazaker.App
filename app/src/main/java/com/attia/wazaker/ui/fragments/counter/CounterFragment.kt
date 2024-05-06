@@ -3,10 +3,15 @@ package com.attia.wazaker.ui.fragments.counter
 
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.text.InputType
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -26,12 +31,13 @@ import java.util.Date
 import java.util.Locale
 
 
+
 @AndroidEntryPoint
 class CounterFragment : Fragment() {
 
     private lateinit var binding: FragmentCounterBinding
     private lateinit var viewModel: CounterViewModel
-    private var isRunning = false
+    private var isRunning = true
     private val args: CounterFragmentArgs by navArgs()
 
     @SuppressLint("SetTextI18n")
@@ -50,21 +56,18 @@ class CounterFragment : Fragment() {
 
         binding.apply {
             btnPlay.setOnClickListener {
-                if (isRunning) {
+                if(isRunning) {
                     btnPlay.setImageResource(R.drawable.ic_pause)
-                    chCounter.start()
-                    viewModel.flag = true
                     viewModel.automationTasbih()
                     isRunning = false
-                } else {
+                }
+                else {
                     btnPlay.setImageResource(R.drawable.ic_play_button)
-                    chCounter.stop()
-                    viewModel.flag = false
+                    viewModel.cancelAutomationTasbih()
                     isRunning = true
                 }
             }
         }
-
         binding.btnStep.setOnClickListener {
             showDialog("إضافة مقدار العدة") { value ->
                 if (value.isEmpty() || value.toInt() <= 0) {
@@ -79,6 +82,8 @@ class CounterFragment : Fragment() {
             }
 
         }
+
+        var target = 100
         binding.btnGoal.setOnClickListener {
             showDialog("إضافة هدف") { value ->
                 if (value.isEmpty() || value.toInt() < 1) {
@@ -89,7 +94,15 @@ class CounterFragment : Fragment() {
                     ).show()
                 } else {
                     binding.tvGoal.text = "الهدف : $value"
+                    target = value.toInt()
                 }
+            }
+        }
+
+        viewModel.counter.observe(viewLifecycleOwner){ value ->
+
+            if(value == target) {
+                targetEvent()
             }
         }
 
@@ -111,7 +124,8 @@ class CounterFragment : Fragment() {
     }
 
 
-    fun showDialog(text: String, task: (String) -> (Unit)) {
+    @SuppressLint("InflateParams")
+    private fun showDialog(text: String, task: (String) -> (Unit)) {
         val layout = layoutInflater.inflate(R.layout.add_layout, null)
         val title = layout.findViewById<TextView>(R.id.tvTitle)
         val dialog = Dialog(requireContext())
@@ -124,12 +138,28 @@ class CounterFragment : Fragment() {
         editTextValue.inputType = InputType.TYPE_CLASS_NUMBER
         posBtn.setOnClickListener {
             task(editTextValue.text.toString())
+
             dialog.dismiss()
         }
         negBtn.setOnClickListener {
             dialog.dismiss()
         }
         dialog.show()
+    }
+
+
+    private fun targetEvent() {
+        val vibrator = requireContext().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                vibrator.vibrate(
+                    VibrationEffect.createOneShot(
+                        1000,
+                        VibrationEffect.DEFAULT_AMPLITUDE
+                    )
+                )
+            } else {
+                vibrator.vibrate(1000)
+            }
     }
 
 }

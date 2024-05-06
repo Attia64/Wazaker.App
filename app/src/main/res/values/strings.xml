@@ -21,7 +21,7 @@
     <string name="play">Play</string>
     <string name="stop">Stop</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="target">الهدف :</string>
+    <string name="target">الهدف : 100</string>
     <string name="cardposition">CardPosition</string>
 
 </resources>

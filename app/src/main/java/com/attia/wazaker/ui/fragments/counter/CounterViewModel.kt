@@ -6,23 +6,22 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.attia.wazaker.database.AzkaarHistory
-import com.attia.wazaker.database.HistoryDatabaseDao
+import com.attia.wazaker.ui.fragments.history.HistoryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import javax.inject.Named
 
 @HiltViewModel
-class CounterViewModel @Inject constructor(@Named("DaoHistory") private val historyDao: HistoryDatabaseDao) :
+class CounterViewModel @Inject constructor(private val historyRepository: HistoryRepository) :
     ViewModel() {
 
     private var checkCount = 0
     var flag = false
-    private var endTime = 0L
     private var processDuration = 0L
+    private var tasbihJob: Job? = null
 
     var step = MutableLiveData(1)
 
@@ -32,7 +31,7 @@ class CounterViewModel @Inject constructor(@Named("DaoHistory") private val hist
 
     fun increaseCounter() {
         _counter.value = step.value?.let { (_counter.value)?.plus(it) }
-        if (flag && checkCount < 3) {
+        if (flag) {
             checkCount++
         }
     }
@@ -43,31 +42,43 @@ class CounterViewModel @Inject constructor(@Named("DaoHistory") private val hist
 
     fun addHistory(zekr: String, date: String, count: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            historyDao.upsertHistoryField(AzkaarHistory(0, zekr, date, count))
+            historyRepository.addHistory(zekr, date, count)
         }
     }
 
-    private fun setEndTime() {
-        if(checkCount == 3){
-            endTime = System.currentTimeMillis()
-        }
+    private fun checker(): Boolean {
+        return checkCount == 3
     }
+
+    private fun setEndTime(): Long {
+        if (checker()) {
+            return System.currentTimeMillis()
+        }
+        return 0L
+    }
+
     fun automationTasbih() {
         val startTime = System.currentTimeMillis()
-        setEndTime()
-        if (checkCount == 3) {
-            processDuration = ((endTime - startTime) / 1000) / 3
-            automatedTasbihProcess(processDuration)
-        }
+        flag = true
+        val endTime = setEndTime()
+        processDuration = ((endTime - startTime) / 1000) / 3
+        Log.i("AutomationTasbih", "StartTime: $startTime & EndTime: $endTime")
+        tasbihJob = automatedTasbihProcess(processDuration)
+        flag = false
+        checkCount = 0
 
     }
 
-    private fun automatedTasbihProcess(duration: Long) {
-        viewModelScope.launch {
-            while (flag) {
+    private fun automatedTasbihProcess(duration: Long): Job {
+        return viewModelScope.launch {
+            while (true) {
                 delay(duration)
-                _counter.value = step.value?.let { (_counter.value)?.plus(it) }
+                increaseCounter()
             }
         }
+    }
+
+    fun cancelAutomationTasbih() {
+        tasbihJob?.cancel()
     }
 }

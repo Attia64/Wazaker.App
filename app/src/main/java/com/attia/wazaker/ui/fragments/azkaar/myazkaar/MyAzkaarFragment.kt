@@ -95,7 +95,7 @@ class MyAzkaarFragment : Fragment() {
         return binding.root
     }
 
-    fun showDialog(text: String, task: (String) -> (Unit)) {
+  private  fun showDialog(text: String, task: (String) -> (Unit)) {
         val layout = layoutInflater.inflate(R.layout.add_layout, null)
         val title = layout.findViewById<TextView>(R.id.tvTitle)
         val dialog = Dialog(requireContext())

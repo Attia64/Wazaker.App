@@ -4,22 +4,20 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.attia.wazaker.database.AzkaarHistory
-import com.attia.wazaker.database.HistoryDatabaseDao
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import javax.inject.Named
 
 @HiltViewModel
-class HistoryViewModel @Inject constructor(@Named("DaoHistory") private val historyDatabaseDao: HistoryDatabaseDao) :
+class HistoryViewModel @Inject constructor(private val historyRepository: HistoryRepository) :
     ViewModel() {
 
-        fun deleteHistoryItem(item: AzkaarHistory) {
-            viewModelScope.launch (Dispatchers.IO){
-                historyDatabaseDao.delete(item)
-            }
+    fun deleteHistoryItem(item: AzkaarHistory) {
+        viewModelScope.launch(Dispatchers.IO) {
+            historyRepository.deleteHistoryItem(item)
         }
+    }
 
-    val historyList: LiveData<List<AzkaarHistory>> = historyDatabaseDao.getAll()
+    val historyList: LiveData<List<AzkaarHistory>> = historyRepository.getHistoryList()
 }
