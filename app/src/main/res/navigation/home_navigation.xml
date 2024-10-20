@@ -11,7 +11,7 @@
         <argument
             android:name="chossenzekr"
             app:argType="string"
-            app:nullable="true"/>
+            android:defaultValue="أسْتَغْفِرُ اللهَ العَظِيم"/>
         <action
             android:id="@+id/action_counterFragment_to_myAzkaarFragment"
             app:destination="@id/myAzkaarFragment"

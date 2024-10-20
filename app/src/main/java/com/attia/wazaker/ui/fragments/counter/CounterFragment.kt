@@ -31,7 +31,6 @@ import java.util.Date
 import java.util.Locale
 
 
-
 @AndroidEntryPoint
 class CounterFragment : Fragment() {
 
@@ -54,14 +53,15 @@ class CounterFragment : Fragment() {
         binding.counterViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        binding.tvAzkaar.text = args.chossenzekr
+
         binding.apply {
             btnPlay.setOnClickListener {
-                if(isRunning) {
+                if (isRunning) {
                     btnPlay.setImageResource(R.drawable.ic_pause)
                     viewModel.automationTasbih()
                     isRunning = false
-                }
-                else {
+                } else {
                     btnPlay.setImageResource(R.drawable.ic_play_button)
                     viewModel.cancelAutomationTasbih()
                     isRunning = true
@@ -99,9 +99,9 @@ class CounterFragment : Fragment() {
             }
         }
 
-        viewModel.counter.observe(viewLifecycleOwner){ value ->
+        viewModel.counter.observe(viewLifecycleOwner) { value ->
 
-            if(value == target) {
+            if (value == target) {
                 targetEvent()
             }
         }
@@ -150,16 +150,16 @@ class CounterFragment : Fragment() {
 
     private fun targetEvent() {
         val vibrator = requireContext().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                vibrator.vibrate(
-                    VibrationEffect.createOneShot(
-                        1000,
-                        VibrationEffect.DEFAULT_AMPLITUDE
-                    )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vibrator.vibrate(
+                VibrationEffect.createOneShot(
+                    1000,
+                    VibrationEffect.DEFAULT_AMPLITUDE
                 )
-            } else {
-                vibrator.vibrate(1000)
-            }
+            )
+        } else {
+            vibrator.vibrate(1000)
+        }
     }
 
 }

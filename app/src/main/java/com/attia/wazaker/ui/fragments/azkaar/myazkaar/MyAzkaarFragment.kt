@@ -1,6 +1,5 @@
 package com.attia.wazaker.ui.fragments.azkaar.myazkaar
 
-import android.app.AlertDialog
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -8,13 +7,13 @@ import android.os.Bundle
 import android.text.InputType
 import android.util.Log
 import android.view.LayoutInflater
-import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -24,7 +23,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.attia.wazaker.R
 import com.attia.wazaker.databinding.FragmentMyAzkaarBinding
 import com.attia.wazaker.ui.SwipeToDeleteCallBack
-import com.attia.wazaker.ui.fragments.counter.CounterFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -41,11 +39,10 @@ class MyAzkaarFragment : Fragment() {
         binding = FragmentMyAzkaarBinding.inflate(inflater, container, false)
 
         val myAzkaarAdapter = MyAzkaarAdapter(listener = { chosenZekr ->
-            findNavController().navigate(
-                MyAzkaarFragmentDirections.actionMyAzkaarFragmentToCounterFragment(
-                    chosenZekr
-                )
-            )
+            Log.i("chosen Azkaar", chosenZekr)
+            val action = MyAzkaarFragmentDirections.actionMyAzkaarFragmentToCounterFragment()
+            action.chossenzekr = chosenZekr
+            findNavController().navigate(action)
         })
 
         binding.rvAzkaar.apply {
@@ -95,7 +92,12 @@ class MyAzkaarFragment : Fragment() {
         return binding.root
     }
 
-  private  fun showDialog(text: String, task: (String) -> (Unit)) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+    }
+
+    private fun showDialog(text: String, task: (String) -> (Unit)) {
         val layout = layoutInflater.inflate(R.layout.add_layout, null)
         val title = layout.findViewById<TextView>(R.id.tvTitle)
         val dialog = Dialog(requireContext())

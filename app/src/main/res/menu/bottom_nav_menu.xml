@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- TODO: These IDs is the same as in the navigation component (Navigation Graph) -->
     <item
         android:id="@+id/counterFragment"
-        android:icon="@drawable/ic_home_selector"
+        android:icon="@drawable/ic_beads"
         android:title="@string/counter" />
 
     <item
         android:id="@+id/azkaarFragment"
-        android:icon="@drawable/sentences_selector"
+        android:icon="@drawable/ic_sentences"
         android:title="@string/azkaar" />
 
     <item
         android:id="@+id/historyFragment"
-        android:icon="@drawable/ic_home_selector"
+        android:icon="@drawable/ic_history"
         android:title="@string/history" />
 
 </menu>
