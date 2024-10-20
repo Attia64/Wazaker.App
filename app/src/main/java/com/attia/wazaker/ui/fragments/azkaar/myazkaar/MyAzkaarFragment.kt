@@ -1,5 +1,6 @@
 package com.attia.wazaker.ui.fragments.azkaar.myazkaar
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -14,7 +15,6 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -28,7 +28,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MyAzkaarFragment : Fragment() {
 
-    private lateinit var binding: FragmentMyAzkaarBinding
+    private var _binding: FragmentMyAzkaarBinding? = null
+    private val binding get() = _binding!!
     private lateinit var viewModel: MyAzkaarViewModel
 
     override fun onCreateView(
@@ -36,7 +37,17 @@ class MyAzkaarFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMyAzkaarBinding.inflate(inflater, container, false)
+        _binding = FragmentMyAzkaarBinding.inflate(inflater, container, false)
+
+        viewModel = ViewModelProvider(this)[MyAzkaarViewModel::class.java]
+
+
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         val myAzkaarAdapter = MyAzkaarAdapter(listener = { chosenZekr ->
             Log.i("chosen Azkaar", chosenZekr)
@@ -60,26 +71,25 @@ class MyAzkaarFragment : Fragment() {
         val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallBack)
         itemTouchHelper.attachToRecyclerView(binding.rvAzkaar)
 
-
-        viewModel = ViewModelProvider(this)[MyAzkaarViewModel::class.java]
-
         binding.azkaarViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
 
-        viewModel.azkaarList.observe(viewLifecycleOwner, Observer {
+        viewModel.azkaarList.observe(viewLifecycleOwner) {
             myAzkaarAdapter.submitList(it)
-        })
+        }
 
 
         binding.ivAddButton.setOnClickListener {
-            showDialog("إضافة ذكر") { value ->
+            showDialog { value ->
 
                 if (value.isEmpty()) {
-                    Toast.makeText(requireContext(), "يرجى إضافة ذكر", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(),
+                        getString(R.string.please_add_zekr), Toast.LENGTH_SHORT).show()
                 } else {
                     viewModel.addZekr(value)
-                    Toast.makeText(requireContext(), "تم إضافة الذكر", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(),
+                        getString(R.string.zekr_add_successfully), Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -88,21 +98,15 @@ class MyAzkaarFragment : Fragment() {
             findNavController().navigate(R.id.action_myAzkaarFragment_to_azkaarFragment)
         }
 
-
-        return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-    }
-
-    private fun showDialog(text: String, task: (String) -> (Unit)) {
+    @SuppressLint("InflateParams")
+    private fun showDialog(task: (String) -> (Unit)) {
         val layout = layoutInflater.inflate(R.layout.add_layout, null)
         val title = layout.findViewById<TextView>(R.id.tvTitle)
         val dialog = Dialog(requireContext())
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        title.text = text
+        title.text = getString(R.string.add_zekr)
         dialog.setContentView(layout)
         val posBtn = layout.findViewById<Button>(R.id.btnOK)
         val negBtn = layout.findViewById<View>(R.id.btnCancel)
@@ -118,4 +122,8 @@ class MyAzkaarFragment : Fragment() {
         dialog.show()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }

@@ -3,28 +3,23 @@ package com.attia.wazaker.ui.fragments.counter
 
 import android.annotation.SuppressLint
 import android.app.Dialog
-import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.os.Build
 import android.os.Bundle
-import android.os.VibrationEffect
-import android.os.Vibrator
 import android.text.InputType
-import android.util.Log
 import android.view.LayoutInflater
-import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.attia.wazaker.databinding.FragmentCounterBinding
 import com.attia.wazaker.R
+import com.attia.wazaker.databinding.FragmentCounterBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -34,7 +29,8 @@ import java.util.Locale
 @AndroidEntryPoint
 class CounterFragment : Fragment() {
 
-    private lateinit var binding: FragmentCounterBinding
+    private var _binding: FragmentCounterBinding? = null
+    private val binding get() = _binding!!
     private lateinit var viewModel: CounterViewModel
     private var isRunning = true
     private val args: CounterFragmentArgs by navArgs()
@@ -45,10 +41,15 @@ class CounterFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentCounterBinding.inflate(inflater, container, false)
+        _binding = FragmentCounterBinding.inflate(inflater, container, false)
 
         viewModel = ViewModelProvider(this)[CounterViewModel::class.java]
 
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         binding.counterViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
@@ -69,11 +70,11 @@ class CounterFragment : Fragment() {
             }
         }
         binding.btnStep.setOnClickListener {
-            showDialog("إضافة مقدار العدة") { value ->
+            showDialog(getString(R.string.add_step_value)) { value ->
                 if (value.isEmpty() || value.toInt() <= 0) {
                     Toast.makeText(
                         requireContext(),
-                        "لايمكن أن تكون العدة أقل من 1",
+                        getString(R.string.step_must_be_more_than_one),
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
@@ -83,26 +84,17 @@ class CounterFragment : Fragment() {
 
         }
 
-        var target = 100
         binding.btnGoal.setOnClickListener {
-            showDialog("إضافة هدف") { value ->
+            showDialog(getString(R.string.add_goal)) { value ->
                 if (value.isEmpty() || value.toInt() < 1) {
                     Toast.makeText(
                         requireContext(),
-                        "لايمكن أن يكون الهدف أقل من 1",
+                        getString(R.string.goal_must_be_more_than_one),
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
-                    binding.tvGoal.text = "الهدف : $value"
-                    target = value.toInt()
+                    binding.tvGoal.text = getString(R.string.the_goal, value)
                 }
-            }
-        }
-
-        viewModel.counter.observe(viewLifecycleOwner) { value ->
-
-            if (value == target) {
-                targetEvent()
             }
         }
 
@@ -112,15 +104,13 @@ class CounterFragment : Fragment() {
 
         binding.imSave.setOnClickListener {
             val zekrName = binding.tvAzkaar.text.toString()
-            val numcount = binding.tvCounterShower.text.toString().toInt()
+            val numCount = binding.tvCounterShower.text.toString().toInt()
             val time = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
-            viewModel.addHistory(zekrName, time, numcount)
-            Toast.makeText(requireContext(), "تم الإضافة إلي سجل الذكر", Toast.LENGTH_SHORT).show()
+            viewModel.addHistory(zekrName, time, numCount)
+            Toast.makeText(requireContext(),
+                getString(R.string.zekr_added_to_history), Toast.LENGTH_SHORT).show()
         }
 
-
-
-        return binding.root
     }
 
 
@@ -147,19 +137,9 @@ class CounterFragment : Fragment() {
         dialog.show()
     }
 
-
-    private fun targetEvent() {
-        val vibrator = requireContext().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            vibrator.vibrate(
-                VibrationEffect.createOneShot(
-                    1000,
-                    VibrationEffect.DEFAULT_AMPLITUDE
-                )
-            )
-        } else {
-            vibrator.vibrate(1000)
-        }
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 }

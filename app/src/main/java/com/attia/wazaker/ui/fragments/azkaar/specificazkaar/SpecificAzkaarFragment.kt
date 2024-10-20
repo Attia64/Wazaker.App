@@ -1,11 +1,10 @@
 package com.attia.wazaker.ui.fragments.azkaar.specificazkaar
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -16,9 +15,10 @@ import com.attia.wazaker.databinding.FragmentSpecificAzkaarBinding
 class SpecificAzkaarFragment : Fragment() {
 
 
-    private lateinit var binding: FragmentSpecificAzkaarBinding
+    private var _binding: FragmentSpecificAzkaarBinding? = null
+    private val binding get() = _binding!!
     private lateinit var viewModel: SpecificAzkaarViewModel
-    val args: SpecificAzkaarFragmentArgs by navArgs()
+    private val args: SpecificAzkaarFragmentArgs by navArgs()
 
 
     override fun onCreateView(
@@ -26,10 +26,17 @@ class SpecificAzkaarFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        binding = FragmentSpecificAzkaarBinding.inflate(inflater, container, false)
+        _binding = FragmentSpecificAzkaarBinding.inflate(inflater, container, false)
 
         viewModel = ViewModelProvider(this)[SpecificAzkaarViewModel::class.java]
 
+
+        return binding.root
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         binding.imBackButton.setOnClickListener {
             findNavController().navigate(SpecificAzkaarFragmentDirections.actionSpecificAzkaarFragmentToAzkaarFragment())
@@ -41,20 +48,22 @@ class SpecificAzkaarFragment : Fragment() {
             viewModel.progressTracker(position)
         }, args.cardposition)
 
-        binding.apply {
-            rvSpecificAzkaar.apply {
-                adapter = specificAzkaarAdapter
-                layoutManager = LinearLayoutManager(requireContext())
-            }
+
+        binding.rvSpecificAzkaar.apply {
+            adapter = specificAzkaarAdapter
+            layoutManager = LinearLayoutManager(requireContext())
         }
 
 
-        viewModel.adList.observe(viewLifecycleOwner, Observer { it ->
+
+        viewModel.adList.observe(viewLifecycleOwner) {
             specificAzkaarAdapter.submitList(it)
+        }
 
-        })
+    }
 
-        return binding.root
-
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

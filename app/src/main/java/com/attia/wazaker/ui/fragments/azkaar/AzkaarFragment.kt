@@ -14,7 +14,8 @@ import com.attia.wazaker.databinding.FragmentAzkaarBinding
 class AzkaarFragment : Fragment() {
 
 
-    private lateinit var binding: FragmentAzkaarBinding
+    private var _binding: FragmentAzkaarBinding? = null
+    private val binding get() = _binding!!
 
     private val dataList: List<MainAzkaarType> = listOf(
         MainAzkaarType("أذكاري", R.drawable.beads),
@@ -25,12 +26,21 @@ class AzkaarFragment : Fragment() {
         MainAzkaarType("فضل الذكر", R.drawable.star)
     )
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentAzkaarBinding.inflate(inflater, container, false)
+        _binding = FragmentAzkaarBinding.inflate(inflater, container, false)
+
+
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         val mainAzkaarAdapter = MainAzkaarAdapter(listener = { position ->
             when (position) {
@@ -51,7 +61,10 @@ class AzkaarFragment : Fragment() {
                 GridLayoutManager(requireContext(), 2, LinearLayoutManager.VERTICAL, false)
             mainAzkaarAdapter.submitList(dataList)
         }
+    }
 
-        return binding.root
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

@@ -23,5 +23,15 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="target">الهدف : 100</string>
     <string name="cardposition">CardPosition</string>
+    <string name="zekr_add_successfully">تم إضافة الذكر</string>
+    <string name="please_add_zekr">يرجى إضافة ذكر</string>
+    <string name="add_zekr">إضافة ذكر</string>
+    <string name="add_step_value">إضافة مقدار العدة</string>
+    <string name="step_must_be_more_than_one">لايمكن أن تكون العدة أقل من1</string>
+    <string name="add_goal">إضافة هدف</string>
+    <string name="goal_must_be_more_than_one">لايمكن أن يكون الهدف أقل من 1</string>
+    <string name="the_goal">الهدف : %1$s</string>
+    <string name="zekr_added_to_history">تم الإضافة إلي سجل الذكر</string>
+    <string name="zekr_deleted">تم حذف الذكر</string>
 
 </resources>
