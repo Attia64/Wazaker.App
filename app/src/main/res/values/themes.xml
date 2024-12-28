@@ -1,6 +1,7 @@
 <resources>
     <!-- Base application theme. -->
     <style name="Theme.wazaker" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@color/center_azkaar_view_color</item>
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/MainColor</item>
         <item name="colorPrimaryVariant">@color/MainColor2</item>
