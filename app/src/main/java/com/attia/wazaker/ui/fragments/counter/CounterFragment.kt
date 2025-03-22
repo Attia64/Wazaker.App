@@ -70,7 +70,7 @@ class CounterFragment : Fragment() {
             }
         }
         binding.btnStep.setOnClickListener {
-            showDialog(getString(R.string.add_step_value)) { value ->
+            showDialog(getString(R.string.add_step_value), hint = getString(R.string.add_step_hint)) { value ->
                 if (value.isEmpty() || value.toInt() <= 0) {
                     Toast.makeText(
                         requireContext(),
@@ -85,7 +85,7 @@ class CounterFragment : Fragment() {
         }
 
         binding.btnGoal.setOnClickListener {
-            showDialog(getString(R.string.add_goal)) { value ->
+            showDialog(getString(R.string.add_goal), hint = getString(R.string.add_goal_hint)) { value ->
                 if (value.isEmpty() || value.toInt() < 1) {
                     Toast.makeText(
                         requireContext(),
@@ -115,7 +115,7 @@ class CounterFragment : Fragment() {
 
 
     @SuppressLint("InflateParams")
-    private fun showDialog(text: String, task: (String) -> (Unit)) {
+    private fun showDialog(text: String, hint: String, task: (String) -> (Unit)) {
         val layout = layoutInflater.inflate(R.layout.add_layout, null)
         val title = layout.findViewById<TextView>(R.id.tvTitle)
         val dialog = Dialog(requireContext())
@@ -126,6 +126,7 @@ class CounterFragment : Fragment() {
         val negBtn = layout.findViewById<View>(R.id.btnCancel)
         val editTextValue = layout.findViewById<EditText>(R.id.etDialog)
         editTextValue.inputType = InputType.TYPE_CLASS_NUMBER
+        editTextValue.setHint(hint)
         posBtn.setOnClickListener {
             task(editTextValue.text.toString())
 

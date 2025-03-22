@@ -21,6 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:fontFamily="@font/rubik_semi_bold"
             android:layout_margin="3dp"
             android:text ="@{zekr.zekr}"
             android:textColor="@color/white"

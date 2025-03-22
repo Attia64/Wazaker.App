@@ -11,6 +11,9 @@
     <string name="goal">الهدف</string>
     <string name="zekr1">أسْتَغْفِرُ اللهَ العَظِيمَ</string>
     <string name="counter_format">%s</string>
+    <string name="count_history_format">العدات: %s</string>
+    <string name="date_history_format">التاريخ: %s</string>
+    <string name="zekr_history_format">الذكر: %s</string>
     <string name="stop_button">إيقاف</string>
     <string name="morning_Azkaar">أذكار الصباح</string>
     <string name="evening_Azkaar">أذكار المساء</string>
@@ -27,6 +30,8 @@
     <string name="please_add_zekr">يرجى إضافة ذكر</string>
     <string name="add_zekr">إضافة ذكر</string>
     <string name="add_step_value">إضافة مقدار العدة</string>
+    <string name="add_step_hint">أضف عدداً</string>
+    <string name="add_goal_hint">أضف هدفاً</string>
     <string name="step_must_be_more_than_one">لايمكن أن تكون العدة أقل من1</string>
     <string name="add_goal">إضافة هدف</string>
     <string name="goal_must_be_more_than_one">لايمكن أن يكون الهدف أقل من 1</string>
