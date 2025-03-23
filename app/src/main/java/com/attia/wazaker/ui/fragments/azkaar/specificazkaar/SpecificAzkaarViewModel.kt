@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 
-private val morningAzkaar: List<SpecficAzkaarType> = listOf(
+private val morningAzkaar: MutableList<SpecficAzkaarType> = mutableListOf(
     SpecficAzkaarType(
         "أَعُوذُ بِاللهِ مِنْ الشَّيْطَانِ الرَّجِيمِ\n" +
                 "اللّهُ لاَ إِلَـهَ إِلاَّ هُوَ الْحَيُّ الْقَيُّومُ لاَ تَأْخُذُهُ سِنَةٌ وَلاَ نَوْمٌ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الأَرْضِ مَن ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلاَّ بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلاَ يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلاَّ بِمَا شَاء وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالأَرْضَ وَلاَ يَؤُودُهُ حِفْظُهُمَا وَهُوَ الْعَلِيُّ الْعَظِيمُ.",
@@ -120,7 +120,7 @@ private val morningAzkaar: List<SpecficAzkaarType> = listOf(
 
 )
 
-private val eveningAzkaar: List<SpecficAzkaarType> = listOf(
+private val eveningAzkaar: MutableList<SpecficAzkaarType> = mutableListOf(
     SpecficAzkaarType(
         "أَعُوذُ بِاللهِ مِنْ الشَّيْطَانِ الرَّجِيمِ\n" +
                 "اللّهُ لاَ إِلَـهَ إِلاَّ هُوَ الْحَيُّ الْقَيُّومُ لاَ تَأْخُذُهُ سِنَةٌ وَلاَ نَوْمٌ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الأَرْضِ مَن ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلاَّ بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلاَ يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلاَّ بِمَا شَاء وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالأَرْضَ وَلاَ يَؤُودُهُ حِفْظُهُمَا وَهُوَ الْعَلِيُّ الْعَظِيمُ.",
@@ -234,7 +234,7 @@ private val eveningAzkaar: List<SpecficAzkaarType> = listOf(
     SpecficAzkaarType("أسْتَغْفِرُ اللهَ وَأتُوبُ إلَيْهِ", 100, 29)
 )
 
-private val prayAzkaar: List<SpecficAzkaarType> = listOf(
+private val prayAzkaar: MutableList<SpecficAzkaarType> = mutableListOf(
     SpecficAzkaarType("اسْتَغْفِرُ اللَّهَ", 3, 0),
     SpecficAzkaarType(
         "اللهمَّ أنتَ السَّلامُ، ومنك السَّلامُ، تبارَكْتَ يا ذا الجلالِ والإكرامِ",
@@ -277,7 +277,7 @@ private val prayAzkaar: List<SpecficAzkaarType> = listOf(
     )
 )
 
-private val sleepingAzkaar: List<SpecficAzkaarType> = listOf(
+private val sleepingAzkaar: MutableList<SpecficAzkaarType> = mutableListOf(
     SpecficAzkaarType(
         "أَعُوذُ بِاللهِ مِنْ الشَّيْطَانِ الرَّجِيمِ\n" +
                 "اللّهُ لاَ إِلَـهَ إِلاَّ هُوَ الْحَيُّ الْقَيُّومُ لاَ تَأْخُذُهُ سِنَةٌ وَلاَ نَوْمٌ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الأَرْضِ مَن ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلاَّ بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلاَ يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلاَّ بِمَا شَاء وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالأَرْضَ وَلاَ يَؤُودُهُ حِفْظُهُمَا وَهُوَ الْعَلِيُّ الْعَظِيمُ.",
@@ -315,7 +315,7 @@ private val sleepingAzkaar: List<SpecficAzkaarType> = listOf(
     )
 )
 
-private val AzkaarImportance: List<SpecficAzkaarType> = listOf(
+private val AzkaarImportance: MutableList<SpecficAzkaarType> = mutableListOf(
 
     SpecficAzkaarType("فضل الذكر :", 2,
         21),

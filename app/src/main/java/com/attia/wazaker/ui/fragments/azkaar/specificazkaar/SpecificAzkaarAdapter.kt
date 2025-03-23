@@ -38,7 +38,7 @@ class SpecificAzkaarAdapter(
                 tvProgress.text = currentList[position].count.toString()
                 root.setOnClickListener {
                     listener(position)
-                    pbazkaar.progress += currentList[position].progress
+                    pbazkaar.progress = currentList[position].progress
                     Log.i(
                         "MainActivity",
                         "The Value of Progress:${pbazkaar.progress}, Value:${currentList[position].progress}"
